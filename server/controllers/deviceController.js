@@ -2,6 +2,7 @@ const uuid = require('uuid');
 const path = require('path');
 const {Device, DeviceInfo} = require('../models/models');
 const ApiError = require('../error/ApiError');
+const { info } = require('console');
 
 class DeviceController{
     async create(req, res, next){
@@ -61,7 +62,12 @@ class DeviceController{
     }
 
     async getOne(req, res){
-
+        const {id} = req.params;
+        const device = await Device.findOne({
+            where : {id},
+            include : {model : DeviceInfo, as : 'info'}
+        })
+        res.json(device)
     }
 }
 
