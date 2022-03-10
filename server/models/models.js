@@ -71,6 +71,7 @@ Device.hasMany(BasketDevice);
 BasketDevice.belongsTo(Device);
 
 Device.hasMany(DeviceInfo, {as : 'info'});
+//Device.hasMany(DeviceInfo);
 DeviceInfo.belongsTo(Device);
 
 Type.belongsToMany(Brand, {through : TypeBrand});
