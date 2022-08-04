@@ -1,66 +1,82 @@
-const uuid = require('uuid')
-const path = require('path');
+const {v4} = require('uuid')
+const path = require('path')
+const ApiError = require('../errorsApi/apiError')
 const {Device, DeviceInfo} = require('../models/models')
-const ApiError = require('../error/ApiError');
 
-class DeviceController {
-    async create(req, res, next) {
+class DeviceController{
+    async create(req, res, next){
         try {
-            let {name, price, brandId, typeId, info} = req.body
+            let {name, price, typeId, brandId, info} = req.body       
             const {img} = req.files
-            let fileName = uuid.v4() + ".jpg"
-            img.mv(path.resolve(__dirname, '..', 'static', fileName))
-            const device = await Device.create({name, price, brandId, typeId, img: fileName});
+            const fileName = v4()+'.jpg'
+            img.mv(path.resolve('static' ,fileName))
 
-            if (info) {
-                info = JSON.parse(info)
-                info.forEach(i =>
-                    DeviceInfo.create({
-                        title: i.title,
-                        description: i.description,
-                        deviceId: device.id
-                    })
-                )
-            }
+            
+            const device = await Device.create({name, price, typeId, brandId, img : fileName})
+
+            info = info.trim()
+            info = JSON.parse(info)
+    
+            info.forEach(i => {
+                DeviceInfo.create({
+                    title : i.title,
+                    description : i.description,
+                    deviceId : device.id
+                })
+            })
 
             return res.json(device)
-        } catch (e) {
-            next(ApiError.badRequest(e.message))
+                
+        } catch (error) {                       
+            next(ApiError.badRequest(error.message))            
+        }
+        
+    }
+
+    async getOne(req, res, next){
+        try {
+            const {id} = req.params
+            const device = await Device.findOne({
+                where :{id},
+                include : [{model : DeviceInfo, as: 'info'}]
+            })
+
+            res.json(device)
+            
+        } catch (error) {
+            next(ApiError.badRequest(error.message))
         }
 
     }
 
-    async getAll(req, res) {
-        let {brandId, typeId, limit, page} = req.query
-        page = page || 1
-        limit = limit || 9
-        let offset = page * limit - limit
-        let devices;
-        if (!brandId && !typeId) {
-            devices = await Device.findAndCountAll({limit, offset})
+    async getAll(req, res, next){
+        try {
+            let {typeId, brandId, limit, page} = req.query
+            limit = limit || 9
+            page = page || 1
+
+            let offset = page * limit - limit
+            let find
+
+            if(typeId && brandId){
+                find = await Device.findAndCountAll({where : {typeId, brandId}, limit, offset})
+            }
+            if(!typeId && brandId){
+                find = await Device.findAndCountAll({where :{brandId}, limit, offset })
+            }
+            if(typeId && !brandId){
+                find = await Device.findAndCountAll({where : {typeId}, limit, offset})
+            }
+            if(!typeId && !brandId){
+                find = await Device.findAndCountAll({limit, offset})
+            }                
+            return res.json(find)            
+        } catch (error) {
+            next(ApiError.badRequest(error.message))            
         }
-        if (brandId && !typeId) {
-            devices = await Device.findAndCountAll({where:{brandId}, limit, offset})
-        }
-        if (!brandId && typeId) {
-            devices = await Device.findAndCountAll({where:{typeId}, limit, offset})
-        }
-        if (brandId && typeId) {
-            devices = await Device.findAndCountAll({where:{typeId, brandId}, limit, offset})
-        }
-        return res.json(devices)
+
     }
 
-    async getOne(req, res) {
-        const {id} = req.params
-        const device = await Device.findOne(
-            {
-                where: {id},
-                include: [{model: DeviceInfo, as: 'info'}]
-            },
-        )
-        return res.json(device)
-    }
 }
 
 module.exports = new DeviceController()

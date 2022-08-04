@@ -1,24 +1,26 @@
-import {Switch, Route, Redirect} from 'react-router-dom'
-import {authRoutes, publicRoutes} from '../routes';
-import { SHOP_ROUTE } from '../utils/consts';
-import {Context} from '../index'
-import { useContext } from 'react';
+import React, { useContext } from "react"
+import { Routes, Route, Navigate} from'react-router-dom'
+import { authRoutes, publicRoutes } from "../routes"
+import {v4} from 'uuid'
+import Shop from "../pages/Shop"
+import { Context } from "../index"
 
-const AppRouter = () => {    
-    const {user} = useContext(Context)
-    console.log(user)
-    return (
-        <Switch>
+const AppRouter = () => {
+    const {user} = useContext(Context)      
+    console.log(user)  
+    return(
+        <Routes>
             {user.isAuth && authRoutes.map(({path, Component}) => 
-                <Route key={path} path={path} component={Component} exact />                
-            )}
+                <Route key={v4()} path={path} element={<Component />} exact />)}
 
             {publicRoutes.map(({path, Component}) => 
-                <Route key={path} path={path} component={Component} exact />
-            )} 
+                <Route key={v4()} path={path} element={<Component />} exact />)}    
 
-            <Redirect to={SHOP_ROUTE} />           
-        </Switch>
+            <Route path="*" element={<Shop />}/>      
+        </Routes>
+        
     )
 }
-export default AppRouter;
+
+export default AppRouter
+//<Route path="*" element={<Shop />}/>      

@@ -1,11 +1,11 @@
+const Router = require('express')
+const DeviceController = require('../controllers/deviceController')
 
-const Router = require('express');
-const deviceController = require('../controllers/deviceController');
-const router = new Router();
-const checkRole = require('../middleware/checkRoleMiddleware');
+const router = new Router()
 
-router.post('/', deviceController.create);
-router.get('/', deviceController.getAll);
-router.get('/:id', deviceController.getOne);
+router.post('/',DeviceController.create)
+router.get('/',DeviceController.getAll)
+router.get('/:id',DeviceController.getOne)
+
 
 module.exports = router;

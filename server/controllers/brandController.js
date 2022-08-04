@@ -1,18 +1,27 @@
+const ApiError = require('../errorsApi/apiError')
 const {Brand} = require('../models/models')
-const ApiError = require('../error/ApiError');
+class BrandController{
 
-class BrandController {
-    async create(req, res) {
-        const {name} = req.body
-        const brand = await Brand.create({name})
-        return res.json(brand)
+    async create(req,res, next){
+        try {
+            const {name} = req.body
+            const post = await Brand.create({name})
+            return await res.json(post)
+
+        } catch (error) {
+            return next(ApiError.badRequest('Cannot save Brand'))            
+        }
+
     }
 
-    async getAll(req, res) {
-        const brands = await Brand.findAll()
-        return res.json(brands)
+    async getAll(req,res,next){
+        try {
+            const post = await Brand.findAll()
+            return await res.json(post)
+        } catch (error) {
+            return next(ApiError.badRequest('Cannot get all Brand'))
+        }
     }
-
 }
 
 module.exports = new BrandController()

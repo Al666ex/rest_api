@@ -1,34 +1,81 @@
-
+const ApiError = require("../errorsApi/apiError")
 const jwt = require('jsonwebtoken');
 
 module.exports = function(role){
     return function(req, res, next){
-        if(req.method === 'OPTIONS'){
-            next();
+        if(req.method === 'OPTION'){
+            next()
         }
-
-        try{
-            const token = req.headers.authorization.split(' ')[1];
-            
+        try {
+            const token = req.headers.authorization.split(' ')[1]
             if(!token){
-                return res.status(401).json({message : 'Пользователь не авторизован'});
+                next(ApiError.badRequest('Пользователь не аутентифицирован'))                
             }
-    
-            const decoded = jwt.verify(token, process.env.SECRET_KEY);
+
+            const decoded = jwt.verify(token, process.env.SECRET_KEY)
             if(decoded.role !== role){
-                return res.status(403).json({message : 'Отказано в доступе'})
+                next(ApiError.badRequest('Пользователь не имеет прав на добавление записи'))
             }
-    
-            req.user = decoded;
-            next();
-    
-    
+
+            req.user = decoded
+            next()
+
+        } catch (error) {
+            next(ApiError.badRequest({message : error}))            
         }
-        catch(e){
-            res.status(401).json({message : 'Пользователь не авторизован'});
-        }        
     }
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// module.exports = function(role){
+//     return function(req, res, next){
+//         if(req.method === 'OPTION'){
+//             next()
+//         }
+//         try {
+            
+//             const token = req.headers.authorization.split(' ')[1]
+//             if(!token){
+//                 next(ApiError.badRequest('Авторизация отсутствует'))
+//             }
+//             const decoded = jwt.verify(token, process.env.SECRET_KEY)            
+//             if(decoded.role !== role){
+//                 next(ApiError.badRequest('Доступ отсутствует'))
+//             }
+
+//             req.user = decoded
+//             next()
+
+//         } catch (error) {
+//             next(ApiError.badRequest('Нед доступа.'))
+//         }
+//     }
+// }
