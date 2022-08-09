@@ -25,7 +25,11 @@ export default class DeviceStorage{
 
         this._devices = [
             {id:1, name : 'Galaxy S21 Ultra 5G Prime2', price : 15000, rating : 5, img:'https://hi-tech.mail.ru/news/58868-cveta-iphone-14-i-iphone-14-pro-slili-v-set/imageset/2304289/'},
-            {id:2, name : 'Xperia PRO-I', price : 12400, rating : 5, img:'https://hi-tech.mail.ru/news/58868-cveta-iphone-14-i-iphone-14-pro-slili-v-set/imageset/2304289/'}            
+            {id:2, name : 'Xperia PRO-I', price : 12400, rating : 5, img:'https://hi-tech.mail.ru/news/58868-cveta-iphone-14-i-iphone-14-pro-slili-v-set/imageset/2304289/'},           
+            {id:3, name : 'Sony S21 Ultra 5G Prime2', price : 15000, rating : 5, img:'https://hi-tech.mail.ru/news/58868-cveta-iphone-14-i-iphone-14-pro-slili-v-set/imageset/2304289/'},
+            {id:4, name : 'Xiaomi PRO-II', price : 12400, rating : 5, img:'https://hi-tech.mail.ru/news/58868-cveta-iphone-14-i-iphone-14-pro-slili-v-set/imageset/2304289/'},           
+            {id:5, name : 'Galaxy S21 Ultra 5G Prime2', price : 15000, rating : 5, img:'https://hi-tech.mail.ru/news/58868-cveta-iphone-14-i-iphone-14-pro-slili-v-set/imageset/2304289/'},
+            {id:6, name : 'LG PI', price : 12400, rating : 5, img:'https://hi-tech.mail.ru/news/58868-cveta-iphone-14-i-iphone-14-pro-slili-v-set/imageset/2304289/'}           
         ]
 
         this._selectedType={}
