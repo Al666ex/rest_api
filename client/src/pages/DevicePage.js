@@ -27,7 +27,7 @@ const DevicePage = () => {
 
                     </Row>
                 </Col>
-                <Col md={4}>
+                <Col md={4} className='d-flex justify-content-center align-items-center'>
                     <Card 
                         className="d-flex  justify-content-around justify-content-center align-items-center"
                         style={{width:300, height : 300, fontSizt:32} }                        

@@ -1,11 +1,12 @@
 import React, { useContext } from "react"
-import { Routes, Route, Navigate} from'react-router-dom'
+import { Routes, Route} from'react-router-dom'
 import { authRoutes, publicRoutes } from "../routes"
 import {v4} from 'uuid'
 import Shop from "../pages/Shop"
 import { Context } from "../index"
+import { observer } from "mobx-react-lite"
 
-const AppRouter = () => {
+const AppRouter = observer(() => {
     const {user} = useContext(Context)      
     console.log(user)  
     return(
@@ -20,7 +21,7 @@ const AppRouter = () => {
         </Routes>
         
     )
-}
+})
 
 export default AppRouter
 //<Route path="*" element={<Shop />}/>      

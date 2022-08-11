@@ -7,16 +7,16 @@ import {DEVICE_ROUTE} from '../utils/consts'
 const DeviceItem = ({device}) => {
     const navigate = useNavigate()    
     return (
-    <Col md={3} className='mt-3'>
+    <Col md={3} className='mt-3 m-auto'>
         <Card style={{width : 150, cursor : 'pointer'}} border={'light'} onClick={() => navigate(DEVICE_ROUTE+'/'+device.id)}>
             <Image width={150} height={150} src={device.img} />
-            <dev className='text-black-50 d-flex mt-1 justify-content-between align-items-center'>
+            <div className='text-black-50 d-flex mt-1 justify-content-between align-items-center'>
                 <div>Samsung...</div>
                 <div className='d-flex align-items-center'>
                     <div>{device.rating}</div>
                     <Image width={17} height={17} src={star} />
                 </div>
-            </dev>
+            </div>
             <div>{device.name}</div>
         </Card>
     </Col>
