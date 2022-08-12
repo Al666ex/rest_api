@@ -1,44 +1,37 @@
 import { Container,Row,Col, Image, Card, Button } from "react-bootstrap"
 import bigStar from '../assets/bigStar.png'
+import './DevicePage.css'
 
 const DevicePage = () => {
     const device = {id:1, name : 'Galaxy S21 Ultra 5G Prime2', price : 15000, rating : 5, img:'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'}
     return (
-        <Container className="mt-3" >
-            <Row>
-                <Col 
-                    md={4} 
-                    className='d-flex justify-content-center align-items-center'
-                >
-                    <Image 
-                        src={device.img} 
-                        style={{width : 300, height : 300}}
-                    />
+        <Container className="mt-3">
+            <Row >
+                <Col md={4} className="d-flex justify-content-center align-items-center">
+                    <Image width={300} height={300} src={device.img} className='deviceImg' />                    
                 </Col>
-                <Col md={4} >
-                    <Row className="d-flex flex-column justify-content-center align-items-center ">
-                        <h3 className="w-auto">{device.name}</h3>
-                        <div 
-                            style={{background : `url(${bigStar}) no-repeat center center`, width:240, height:240, backgroundSize:'cover', fontSize:32 }}
-                            className='d-flex justify-content-center align-items-center'
+                <Col md={4} className="d-flex flex-column justify-content-center align-items-center">
+                    <h3 className="text-center">{device.name}</h3>
+                    <div>
+                        <div style={{background : `url(${bigStar}) no-repeat center center`, backgroundSize: 'cover',  fontSize:36}}
+                            className="d-flex justify-content-center align-items-center bigStar"        
                         >
-                            {device.rating}
+                            {device.rating}                            
                         </div>
 
-                    </Row>
+                    </div>
                 </Col>
-                <Col md={4} className='d-flex justify-content-center align-items-center'>
+                <Col md={4} className="d-flex justify-content-center align-items-center" >
                     <Card 
-                        className="d-flex  justify-content-around justify-content-center align-items-center"
-                        style={{width:300, height : 300, fontSizt:32} }                        
+                        style={{width : 300, height : 300}} 
+                        className="d-flex justify-content-around align-items-center "
                     >
-                        <h3>От {device.price} лей</h3>
-                        <Button>Добавить в корзину</Button>
-
+                            <div className="text-center">от {device.price} лей</div>
+                            <Button  variant="outline-success">Добавить в корзину</Button>
                     </Card>
-                </Col>
+                </Col>                                
             </Row>
-        </Container>
+        </Container>        
     )
 }
 

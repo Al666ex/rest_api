@@ -5,10 +5,11 @@ import {useNavigate} from 'react-router-dom'
 import {DEVICE_ROUTE} from '../utils/consts'
 
 const DeviceItem = ({device}) => {
-    const navigate = useNavigate()    
+    const navigate = useNavigate()
+    console.log(navigate)  
     return (
-    <Col md={3} className='mt-3 m-auto'>
-        <Card style={{width : 150, cursor : 'pointer'}} border={'light'} onClick={() => navigate(DEVICE_ROUTE+'/'+device.id)}>
+    <Col md={3} className='mt-3 m-auto' onClick={() => navigate(DEVICE_ROUTE+'/'+device.id)}>
+        <Card style={{width : 150, cursor : 'pointer'}} border={'light'} >
             <Image width={150} height={150} src={device.img} />
             <div className='text-black-50 d-flex mt-1 justify-content-between align-items-center'>
                 <div>Samsung...</div>
