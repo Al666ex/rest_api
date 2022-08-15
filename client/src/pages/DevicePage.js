@@ -4,6 +4,13 @@ import './DevicePage.css'
 
 const DevicePage = () => {
     const device = {id:1, name : 'Galaxy S21 Ultra 5G Prime2', price : 15000, rating : 5, img:'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'}
+    const description = [
+        {id:1, title:'Оперативная память', description:'5 гигабайт'},
+        {id:2, title:'Камера', description:'12 мп'},
+        {id:3, title:'Процессор', description:'Пентиум 3'},
+        {id:4, title:'Количество ядер', description:'12'},
+        {id:5, title:'Аккумулятор', description:'4000'}
+    ];
     return (
         <Container className="mt-3">
             <Row >
@@ -30,6 +37,14 @@ const DevicePage = () => {
                             <Button  variant="outline-success">Добавить в корзину</Button>
                     </Card>
                 </Col>                                
+            </Row>
+            <Row className="d-flex flex-column " >
+                <h3>Характеристики</h3>
+                {description.map((item, index) =>   
+                    <Row key={index} style={{background : index % 2 === 0 ? 'lightgray' : 'transparent', padding : 10}}>
+                        <div>{item.title} : {item.description} </div>
+                    </Row>
+                )}
             </Row>
         </Container>        
     )
