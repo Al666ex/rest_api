@@ -25,7 +25,7 @@ class UserController{
             const basket = await Basket.create({userId : user.id})
 
             const token = generateToken(user.id, user.email, user.role)
-            res.json(token);
+            return res.json({token});
                 
         } catch (error) {
             next(ApiError.badRequest(error.message))
@@ -46,7 +46,7 @@ class UserController{
             }
 
             const token = generateToken(user.id, user.email, user.role)
-            res.json(token);
+            return res.json({token});
                 
         } catch (error) {
             next(ApiError.internal(error.message))            
