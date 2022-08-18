@@ -10,6 +10,7 @@ const $authHttp = axios.create({
 
 const interceptor = config => {
     config.headers.authorization = `Bearer ${localStorage.getItem('token')}`
+    return config
 }
 
 $authHttp.interceptors.request.use(interceptor)

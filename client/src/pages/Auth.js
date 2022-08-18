@@ -1,6 +1,6 @@
 import React, { useState,useContext } from "react"
 import { Card, Container, Form, Button} from "react-bootstrap"
-import { NavLink, useLocation, useNavigate } from "react-router-dom"
+import { NavLink, useLocation, useNavigate} from "react-router-dom"
 import { REGISTRATION_ROUTE, LOGIN_ROUTE} from "../utils/consts"
 import {observer} from 'mobx-react-lite'
 import { registration, login } from "../http/userAPI"
@@ -9,7 +9,7 @@ import {SHOP_ROUTE} from '../utils/consts'
 
 const Auth = observer(() =>{
     const location = useLocation()
-    let navigate = useNavigate()
+    const navigate = useNavigate()
     const isLogin = LOGIN_ROUTE === location.pathname
     const {user} = useContext(Context)
 
@@ -18,17 +18,21 @@ const Auth = observer(() =>{
 
     const check = async () => {
         try {
-            let data;
+            //let data;
             if(isLogin){
-                data = await login(email, password)
+                //data = await login(email, password)
+                await login(email, password)
                 //return data
             }else {
-                data = await registration(email, password)            
+                //data = await registration(email, password)            
+                await registration(email, password)            
                 //console.log(data)
             }
             user.setUser(user)
             user.setIsAuth(true)
+            
             navigate(SHOP_ROUTE)
+            //if(user.isAuth){navigate(SHOP_ROUTE)}
                 
         } catch (error) {
             alert(error.response.data.message)

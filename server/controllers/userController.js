@@ -37,7 +37,7 @@ class UserController{
             const {email, password} = req.body
             const user = await User.findOne({where : {email}})
             if(!user){
-                next(ApiError.badRequest('Wrong EMAIL/ Email not found'))
+                return next(ApiError.badRequest('Wrong EMAIL/ Email not found'))
             }
 
             const compare = bcrypt.compareSync(password, user.password)
@@ -55,7 +55,7 @@ class UserController{
 
     async check(req, res, next){
         const token = generateToken(req.user.id, req.user.email, req.user.role)    
-        return res.json(token); 
+        return res.json({token}); 
     }
 }
 
