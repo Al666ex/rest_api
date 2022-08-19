@@ -4,13 +4,9 @@ const ApiError = require('../errorsApi/apiError')
 class TypeController{
 
     async create(req,res, next){
-        try {
-            const body = req.body;
-            const post = await Type.create(body)
-            return await res.json(post)                
-        } catch (error) {
-            return next(ApiError.internal('Cannot add new record in table Type'))            
-        }
+        const {name} = req.body
+        const type = await Type.create({name})
+        return res.json(type)
     }
 
     async getAll(req, res, next){
