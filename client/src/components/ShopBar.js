@@ -14,7 +14,11 @@ const ShopBar = observer(() => {
                     key={type.id}
                     style={{cursor : 'pointer'}}
                     active={type.id === device.selectedType.id}
-                    onClick={() => device.setSelectedType(type)}
+                    onClick={() => {
+                            device.setSelectedType(type)
+                            console.log('type = ' +type);                            
+                        }                       
+                    }
                 >
                         {type.name}
                 </ListGroup.Item>)}        

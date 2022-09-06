@@ -51,7 +51,7 @@ class DeviceController{
 
     async getAll(req, res, next){
         try {
-            let {typeId, brandId, limit, page} = req.query
+            let {typeId, brandId, page, limit} = req.query
             limit = limit || 9
             page = page || 1
 

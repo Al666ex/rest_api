@@ -7,8 +7,9 @@ import {Context} from '../index'
 import {useNavigate} from 'react-router-dom'
 import {ADMIN_ROUTE, LOGIN_ROUTE} from '../utils/consts'
 
+
 const NavBar = observer(() => {
-    const {user} = useContext(Context)
+    const {user, device} = useContext(Context)
     const navigate = useNavigate()
     console.log('user.isAuth =='+user.isAuth)
     const logout = () => {
@@ -18,10 +19,26 @@ const NavBar = observer(() => {
         console.log('After logout user.isAuth ='+user.isAuth)
     }
 
+    const removeFilters = () => {
+        device.setSelectedType('')
+        device.setSelectedBrand('')
+    }
+
     return (
         <Navbar bg="dark" variant="dark">
         <Container className='d-flex'>
-        <NavLink style={{color : 'white'}} to={SHOP_ROUTE}>Купи устройство</NavLink>
+        <Button
+            variant="link"
+            //style={{color : 'white'}} 
+            style={{color : 'white'}} 
+            className="btn btn-link"
+            onClick={() => {
+                navigate(SHOP_ROUTE)
+                removeFilters()
+            }}         
+        >
+                Купи устройство            
+        </Button>
         {user.isAuth ? 
             <Nav className="me-2">            
                 <Button variant="outline-light" onClick={() => navigate(ADMIN_ROUTE)}>ADMIN Панель</Button>

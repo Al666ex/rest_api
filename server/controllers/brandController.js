@@ -22,6 +22,16 @@ class BrandController{
             return next(ApiError.badRequest('Cannot get all Brand'))
         }
     }
+
+    async getOne(req, res, next){
+        const {id} = req.params
+        try {
+            const brand = await Brand.findOne({where : {id }})
+            return res.json(brand) 
+        } catch (error) {
+            return next(ApiError.badRequest('Cannot get brand'))
+        }
+    }
 }
 
 module.exports = new BrandController()
