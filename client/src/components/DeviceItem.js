@@ -8,7 +8,7 @@ import { observer } from 'mobx-react-lite';
 import {Context} from '../index'
 
 
-const DeviceItem = observer(({dev, brandName}) => {
+const DeviceItem = observer(({dev}) => {
     const navigate = useNavigate()
     const {device} = useContext(Context)
     const [brand, setBrand] = useState({})
@@ -29,6 +29,7 @@ const DeviceItem = observer(({dev, brandName}) => {
                 </div>
             </div>
             <div>{dev.name}</div>
+            
         </Card>
     </Col>
 

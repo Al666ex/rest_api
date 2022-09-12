@@ -15,7 +15,8 @@ const BrandBar = observer(() => {
                     border={brand.id === device.selectedBrand.id ? 'danger' : 'light'}                    
                     onClick={() => {
                         device.setSelectedBrand(brand)
-                        console.log('brand '+ brand)
+                        device.setPage(1)
+                        //console.log('brand '+ brand)
                     }}
                 >
                     {brand.name}

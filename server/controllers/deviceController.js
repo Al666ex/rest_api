@@ -49,6 +49,36 @@ class DeviceController{
 
     }
 
+    async setRating (req, res, next){
+        try {            
+            let {id, rating} = req.body
+            //let {id, rating} = req.query
+            console.log(id+' '+rating)
+            const device = await Device.update(
+                { rating },
+                { where: { id } }                                         
+            )
+            return res.json(device)            
+        } catch (error) {
+            next(ApiError.badRequest(error.message))            
+        }
+    }    
+/*
+    async setRating (req, res, next){
+        try {            
+            let {id, rating} = req.body
+            //let {id, rating} = req.query
+            console.log(rating+' '+id)
+            const device = await Device.update(
+                { rating },
+                { where: { id } }                                         
+            )
+            return res.json(device)            
+        } catch (error) {
+            next(ApiError.badRequest(error.message))            
+        }
+    }
+*/
     async getAll(req, res, next){
         try {
             let {typeId, brandId, page, limit} = req.query

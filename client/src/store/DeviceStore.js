@@ -36,7 +36,8 @@ export default class DeviceStorage{
         this._selectedBrand={}
         this._page=1
         this._totalCount=0
-        this._limit=3        
+        this._limit=3   
+        this._selectedDevice={}
 
         makeAutoObservable(this)
     }
@@ -67,6 +68,10 @@ export default class DeviceStorage{
 
     setLimit(limit){
         this._limit=limit
+    }
+
+    setSelectedDevice(device){
+        this._selectedDevice=device
     }
 
     get page(){
@@ -101,6 +106,9 @@ export default class DeviceStorage{
         return this._selectedBrand
     }
 
+    get selectedDevice(){
+        return this._selectedDevice
+    }
 
 
 

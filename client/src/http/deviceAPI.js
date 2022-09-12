@@ -40,3 +40,9 @@ export const fetchOneDevice = async (id) => {
     return data
 }
 
+export const updateRating = async (id, rating) => {
+    const {data} = await $http.patch('/api/device', { id, rating });
+    console.log('id='+id +' rating='+rating)
+    return data
+}
+
