@@ -24,9 +24,9 @@ const NavBar = observer(() => {
         device.setSelectedType('')
         device.setSelectedBrand('')
     }
-
+    //fixed="top"
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar sticky="top"  bg="dark" variant="dark" >
         <Container className='d-flex'>
         <Button
             variant="link"

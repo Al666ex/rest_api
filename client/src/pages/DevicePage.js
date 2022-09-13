@@ -4,7 +4,7 @@ import './DevicePage.css'
 import { useParams } from "react-router-dom"
 import { useContext, useEffect, useState } from "react"
 import {fetchOneDevice} from '../http/deviceAPI'
-import ListStars from '../components/ListStars'
+//import ListStars from '../components/ListStars'
 import {Context} from '../index'
 import { observer } from "mobx-react-lite"
 import ReactStars from 'react-rating-stars-component'
@@ -18,28 +18,27 @@ const DevicePage = observer(() => {
     const {id} = useParams()
     useEffect(() => {
         fetchOneDevice(id).then(data => {
-            setDevice(data)}            
-        )        
+            setDevice(data)
+            setR(data.rating)
+            device.setSelectedDevice(deviceSelected)  
+            updateRating( device.selectedDevice.id, r )
+            ratingChanged(device.selectedDevice.id, deviceSelected.rating)
+        })        
     },[])
 
-    useEffect(() => {
-
-        //device.setSelectedDevice(deviceSelected)
+    useEffect(() => {        
         fetchOneDevice(id).then(data => {
-            setDevice(data)}            
-        )
-        
-        updateRating( device.selectedDevice.id, r )
-    },[r])    
+            setDevice(data)}                    
+        )    
+        device.setSelectedDevice(deviceSelected)    
+        updateRating( id, r )
+    },[id,r])    
 
-    device.setSelectedDevice(deviceSelected)
-
-    //console.log(device.selectedDevice.name)
+//    device.setSelectedDevice(deviceSelected)    
 
     const ratingChanged = async (newRating) => {
-        //await updateRating( device.selectedDevice.id, newRating )
-        setR(newRating)
-        console.log(newRating);
+        await updateRating( id, newRating )
+        setR(newRating)        
     };    
 
 
@@ -57,13 +56,15 @@ const DevicePage = observer(() => {
                         >
                             {deviceSelected.rating}                            
                         </div>
-
-                        <ReactStars
-                            count={5}
-                            onChange={ratingChanged}
-                            size={24}
-                            activeColor="#ffd700"
-                        />                        
+                        <div className='d-flex justify-content-center align-items-center'>
+                            <ReactStars 
+                                count={5}
+                                value={deviceSelected.rating}
+                                onChange={ratingChanged}
+                                size={24}
+                                activeColor="#ffd700"
+                            />                        
+                        </div>
 
                     </div>
                 </Col>

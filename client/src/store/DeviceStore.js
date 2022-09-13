@@ -38,8 +38,13 @@ export default class DeviceStorage{
         this._totalCount=0
         this._limit=3   
         this._selectedDevice={}
+        this._basket=[]
 
         makeAutoObservable(this)
+    }
+
+    setBasket(basket){
+        this._basket=basket
     }
 
     setBrands(brands){
@@ -108,6 +113,10 @@ export default class DeviceStorage{
 
     get selectedDevice(){
         return this._selectedDevice
+    }
+
+    get getBasket(){
+        return this._basket
     }
 
 
