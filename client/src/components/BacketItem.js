@@ -1,10 +1,12 @@
-import { useState } from "react"
+import { observer } from "mobx-react-lite"
+import { useContext, useState } from "react"
 import { Container, Row, Col, Dropdown, Image, Button, Card } from "react-bootstrap"
 
-const BacketItem = ({item, onRemove=f=>f}) => {
-    const {id, img, name, price} = item
+const BacketItem = observer(({item, onRemove=f=>f}) => {    
+    const {id, img, name, price, qty} = item
     const arr=[1,2,3,4,5,6,7,8,9]
-    const [qty, setQty] = useState(arr[0])    
+    const [qtyItem, setQty] = useState(qty)    
+    
     return(
         <Row className="justify-content-md-center">
             <Col className="d-flex mb-3"  >
@@ -22,7 +24,7 @@ const BacketItem = ({item, onRemove=f=>f}) => {
                 <Col md={2}>
                     <Dropdown >
                         <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            {qty}
+                            {qtyItem}
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu className="dropdown-menu-basket" variant="white">
@@ -32,13 +34,13 @@ const BacketItem = ({item, onRemove=f=>f}) => {
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
-                <Col md={1}>{price * qty}</Col>
+                <Col md={1}>{price * qtyItem}</Col>
             </Col>
             <hr />
 
         </Row>    
     )
 
-}
+})
 
 export default BacketItem

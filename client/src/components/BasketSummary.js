@@ -1,7 +1,18 @@
 
+import { observer } from 'mobx-react-lite';
+import { useContext, useState } from 'react';
 import {Card} from 'react-bootstrap'
+import {Context} from '../index'
 
-const BusketSummary = () => {
+const BusketSummary = observer(() => {
+    const {device} = useContext(Context)
+    const [subtotal, setSubtotal] = useState(null)
+
+    //const subtotal = () => 
+
+
+
+
     return(
         <Card className='position-fixed' border="info" style={{ width: '18rem' }}>
             <Card.Header>Order Summary</Card.Header>
@@ -25,6 +36,6 @@ const BusketSummary = () => {
             </Card.Body>
         </Card>         
     )
-}
+})
 
 export default BusketSummary;
