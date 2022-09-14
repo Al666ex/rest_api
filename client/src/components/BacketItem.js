@@ -1,11 +1,10 @@
 import { observer } from "mobx-react-lite"
-import { useContext, useState } from "react"
-import { Container, Row, Col, Dropdown, Image, Button, Card } from "react-bootstrap"
 
-const BacketItem = observer(({item, onRemove=f=>f}) => {    
+import { Row, Col, Dropdown, Image, Button } from "react-bootstrap"
+
+const BacketItem = observer(({item, onRemove=f=>f, onQty=f=>f}) => {    
     const {id, img, name, price, qty} = item
-    const arr=[1,2,3,4,5,6,7,8,9]
-    const [qtyItem, setQty] = useState(qty)    
+    const arr=[1,2,3,4,5,6,7,8,9]    
     
     return(
         <Row className="justify-content-md-center">
@@ -24,17 +23,17 @@ const BacketItem = observer(({item, onRemove=f=>f}) => {
                 <Col md={2}>
                     <Dropdown >
                         <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            {qtyItem}
+                            {qty}
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu className="dropdown-menu-basket" variant="white">
-                            {arr.map(item => 
-                                <Dropdown.Item key={item} onClick={() => setQty(item)}>{item}</Dropdown.Item>
+                            {arr.map(item =>                                 
+                                <Dropdown.Item key={item} onClick={() => onQty(id,item)}>{item}</Dropdown.Item>
                             )}
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
-                <Col md={1}>{price * qtyItem}</Col>
+                <Col md={1}>{price * qty}</Col>
             </Col>
             <hr />
 

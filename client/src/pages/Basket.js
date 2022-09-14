@@ -8,17 +8,25 @@ import { observer } from "mobx-react-lite"
 
 const Basket = observer(() => {
     const {device} =useContext(Context)
-    const [devices, setDevices] = useState(device.getBasket)    
+    const [devices, setDevices] = useState(device.getBasket)  
+    const shipping = 180  
 
     useEffect(() => {
-        device.setBasket(devices)
-    }, [devices])
+        device.setBasket(devices)        
+    }, [device, devices])
 
     const removeItem = (id) => {
         setDevices(devices.filter(item => item.id !== id ))        
     }
+
+    const change = (id, qty) => {        
+        setDevices(devices.map(item => 
+                                item.id === id && item.qty !== qty ?
+                                     {...item, qty} : 
+                                        item))
+    }
     
-    //const subtotal = () => devices.reduce((prev,cur) => prev+cur)
+    const subtotal = devices.reduce((prev, curr) => prev + (curr.qty * curr.price), 0)       
 
     return (
         <Container>
@@ -36,11 +44,12 @@ const Basket = observer(() => {
                             key={item.id} 
                             item={item}
                             onRemove={() => removeItem(item.id)}                            
+                            onQty={(id, qty) => change(id, qty)}                            
                         />
                     )}
                 </Col>
                 <Col md={3}>
-                    <BusketSummary />
+                    <BusketSummary subtotal={subtotal} shipping={shipping} />
                 </Col>
             </Row> 
         </Container>
